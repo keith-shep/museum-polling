@@ -21,27 +21,27 @@ export function availableDays(jsonData: object): Array<Object> {
     value['date'] = date;
     data.push(value);
   } 
-  const availableDays = data.filter(day => day.sale_status === 1);
+  const availableDays = data.filter(day => day.sale_status === SaleStatus.Open && day.open_status == OpenStatus.Open);
   return availableDays;
 }
 
 
 
 enum SaleStatus {
-  Closed = 1,
-  Down = 2,
+  Open = 1,
+  Closed = 2,
 }
 
 
 enum OpenStatus {
-  Closed = 1,
-  Down = 2,
+  Open = 1,
+  Closed = 2,
 }
 
-// diamond - salestatus 1 openstatus 1
+// diamond/circle - salestatus 1 openstatus 1
 // cross - salestatus 1 openstatus 2
 // dash salestatus 2 openstatus 1
-// circle 
+
 enum Status {
   Circle, // Available now
   Dash, // Sold out
