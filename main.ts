@@ -11,10 +11,10 @@ export async function fetchData(): Promise<object> {
   return jsonData;
 }
 
-export function availableDays(jsonData: object): Array<Object> {
-  const data: Array<CalendarDate> = [];
+export function availableDays(jsonData: object): Array<CalendarDate> {
+  const data = [];
   for (const [date, value] of Object.entries(jsonData.data.calendar)) {
-    value['date'] = value;
+    value['date'] = date;
     data.push(value);
   } 
   const availableDays = data.filter(day => day.sale_status === SaleStatus.Open && day.open_status == OpenStatus.Open);
@@ -47,8 +47,8 @@ enum Status {
 
 interface CalendarDate {
   apply_type: number,
-  sale_status: number,
-  open_status: number,
+  sale_status: SaleStatus,
+  open_status: OpenStatus,
   holiday: any,
   day_label: object,
   is_temporary_closure: boolean,
