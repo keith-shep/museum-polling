@@ -26,10 +26,7 @@ export function availableDays(jsonData: object): Array<Object> {
 }
 
 
-// diamond - salestatus 1 openstatus 1
-// cross - salestatus 1 openstatus 2
-// dash salestatus 2 openstatus 1
-// circle 
+
 enum SaleStatus {
   Closed = 1,
   Down = 2,
@@ -41,6 +38,10 @@ enum OpenStatus {
   Down = 2,
 }
 
+// diamond - salestatus 1 openstatus 1
+// cross - salestatus 1 openstatus 2
+// dash salestatus 2 openstatus 1
+// circle 
 enum Status {
   Circle, // Available now
   Dash, // Sold out
