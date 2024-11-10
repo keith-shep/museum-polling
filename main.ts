@@ -1,7 +1,3 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
-
 export async function fetchData(): Promise<object> {
   const jsonResponse = await fetch(
     "https://museum-tickets.nintendo.com/en/api/calendar?target_year=2024&target_month=12", {
