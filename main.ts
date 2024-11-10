@@ -12,7 +12,7 @@ export async function fetchData(): Promise<object> {
 }
 
 export function availableDays(calendar: Object): Array<CalendarDate> {
-  const data = [];
+  const data: Array<CalendarDate> = [];
   for (const [date, value] of Object.entries(calendar)) {
     value['date'] = date;
     data.push(value);
