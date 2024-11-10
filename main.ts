@@ -8,12 +8,12 @@ export async function fetchData(): Promise<object> {
   );
 
   const jsonData = await jsonResponse.json();
-  return jsonData;
+  return jsonData.data.calendar;
 }
 
-export function availableDays(jsonData: object): Array<CalendarDate> {
+export function availableDays(calendar: Object): Array<CalendarDate> {
   const data = [];
-  for (const [date, value] of Object.entries(jsonData.data.calendar)) {
+  for (const [date, value] of Object.entries(calendar)) {
     value['date'] = date;
     data.push(value);
   } 
