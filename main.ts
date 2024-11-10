@@ -16,9 +16,9 @@ export async function fetchData(): Promise<object> {
 }
 
 export function availableDays(jsonData: object): Array<Object> {
-  const data = [];
+  const data: Array<CalendarDate> = [];
   for (const [date, value] of Object.entries(jsonData.data.calendar)) {
-    value['date'] = date;
+    value['date'] = value;
     data.push(value);
   } 
   const availableDays = data.filter(day => day.sale_status === SaleStatus.Open && day.open_status == OpenStatus.Open);
@@ -48,6 +48,19 @@ enum Status {
   Diamond, // Accepting entries
   Cross, // Closure / Regular Holiday / Already Have Tickets
 }
+
+interface CalendarDate {
+  apply_type: number,
+  sale_status: number,
+  open_status: number,
+  holiday: any,
+  day_label: object,
+  is_temporary_closure: boolean,
+  temporary_closure_time: any,
+  is_holding: boolean,
+  date: string // extra
+}
+
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
