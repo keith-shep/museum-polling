@@ -1,3 +1,4 @@
+import { sendEmail } from "./mail.ts";
 export async function fetchData(): Promise<object> {
   const jsonResponse = await fetch(
     "https://museum-tickets.nintendo.com/en/api/calendar?target_year=2024&target_month=12", {
@@ -63,7 +64,14 @@ if (import.meta.main) {
   const data = await fetchData();
 
   const days = availableDays(data);
-  console.log(days.map(day => day.date));
-
+  const daysArray = days.map(day => day.date);
+  
+  if (daysArray.length === 0) {
+    console.log('no available slots');
+  } else {
+    console.log('slots are available!');
+    sendEmail(daysArray.join('\n'));
+  }
+  
 
 }
