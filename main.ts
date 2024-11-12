@@ -1,4 +1,5 @@
 import "jsr:@std/dotenv/load";
+import { gray, bgGreen } from "https://deno.land/std@0.153.0/fmt/colors.ts";
 import { sendEmail } from "./mail.ts";
 export async function fetchData(): Promise<object> {
   const jsonResponse = await fetch(
@@ -34,18 +35,18 @@ export async function checkMuseum() {
   
   const interval = getRandomInterval();
   if (daysArray.length === 0) {
-    log(`no available slots - retrying in ${interval/1000} seconds`);
+    log(`no available slots - retrying in ${interval/1000} seconds`, gray);
   } else {
-    log(`slots are available! - retrying in ${interval/1000} seconds`);
+    log(`slots are available! - retrying in ${interval/1000} seconds`, bgGreen);
     sendEmail(daysArray.join('\n'));
   }
   setTimeout(() => checkMuseum(), interval);
 }
 
 
-function log(message: string): void {
+function log(message: string, color: Function): void {
   const now = new Date().toString();
-  console.log(`${message} - ${now}`);
+  console.log(color(`${message} - ${now}`));
 }
 
 enum SaleStatus {
