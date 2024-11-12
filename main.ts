@@ -24,25 +24,29 @@ export function availableDays(calendar: Object): Array<CalendarDate> {
   return availableDays;
 }
 
+
 export async function checkMuseum() {
   const data = await fetchData();
 
   const days = availableDays(data);
   const daysArray = days.map(day => day.date);
 
-  const now = new Date().toString();
+  
   const interval = getRandomInterval();
   if (daysArray.length === 0) {
-    console.log(`no available slots - ${now} - retrying in ${interval/1000} seconds`);
+    log(`no available slots - retrying in ${interval/1000} seconds`);
   } else {
-    console.log(`slots are available! - ${now} - retrying in ${interval/1000} seconds`);
+    log(`slots are available! - retrying in ${interval/1000} seconds`);
     sendEmail(daysArray.join('\n'));
   }
   setTimeout(() => checkMuseum(), interval);
 }
 
 
-
+function log(message: string): void {
+  const now = new Date().toString();
+  console.log(`${message} - ${now}`);
+}
 
 enum SaleStatus {
   Open = 1,
