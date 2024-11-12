@@ -82,6 +82,7 @@ function getRandomInt(max: number) {
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
   const SECONDS = 1000;
-  setInterval(() => checkMuseum(), getRandomInt(30) * SECONDS);
+  const INTERVAL_IN_SECONDS = Deno.env.get("INTERVAL_IN_SECONDS");
+  setInterval(() => checkMuseum(), getRandomInt(INTERVAL_IN_SECONDS) * SECONDS);
 
 }
