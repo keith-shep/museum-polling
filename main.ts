@@ -22,6 +22,21 @@ export function availableDays(calendar: Object): Array<CalendarDate> {
   return availableDays;
 }
 
+export async function checkMuseum() {
+  const data = await fetchData();
+
+  const days = availableDays(data);
+  const daysArray = days.map(day => day.date);
+
+  if (daysArray.length === 0) {
+    console.log('no available slots');
+  } else {
+    console.log('slots are available!');
+    sendEmail(daysArray.join('\n'));
+  }
+}
+
+
 
 
 enum SaleStatus {
@@ -61,17 +76,7 @@ interface CalendarDate {
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
-  const data = await fetchData();
-
-  const days = availableDays(data);
-  const daysArray = days.map(day => day.date);
-  
-  if (daysArray.length === 0) {
-    console.log('no available slots');
-  } else {
-    console.log('slots are available!');
-    sendEmail(daysArray.join('\n'));
-  }
-  
+  const SECONDS = 1000;
+  setInterval(() => checkMuseum(), 30 * SECONDS);
 
 }
