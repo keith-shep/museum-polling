@@ -73,10 +73,13 @@ interface CalendarDate {
   date: string // extra
 }
 
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max);
+}
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
   const SECONDS = 1000;
-  setInterval(() => checkMuseum(), 30 * SECONDS);
+  setInterval(() => checkMuseum(), getRandomInt(30) * SECONDS);
 
 }
