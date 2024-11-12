@@ -4,6 +4,7 @@ export async function fetchData(): Promise<object> {
     "https://museum-tickets.nintendo.com/en/api/calendar?target_year=2024&target_month=12", {
       headers: {
         "x-requested-with": "XMLHttpRequest",
+        'cache-control': 'no-cache'
       },
     }
   );
