@@ -1,3 +1,4 @@
+import "jsr:@std/dotenv/load";
 import { sendEmail } from "./mail.ts";
 export async function fetchData(): Promise<object> {
   const jsonResponse = await fetch(
