@@ -30,10 +30,11 @@ export async function checkMuseum() {
   const days = availableDays(data);
   const daysArray = days.map(day => day.date);
 
+  const now = new Date().toString();
   if (daysArray.length === 0) {
-    console.log('no available slots');
+    console.log(`no available slots - ${now}`);
   } else {
-    console.log('slots are available!');
+    console.log(`slots are available! - ${now}`);
     sendEmail(daysArray.join('\n'));
   }
 }
