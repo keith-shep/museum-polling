@@ -31,12 +31,14 @@ export async function checkMuseum() {
   const daysArray = days.map(day => day.date);
 
   const now = new Date().toString();
+  const interval = getRandomInterval();
   if (daysArray.length === 0) {
-    console.log(`no available slots - ${now}`);
+    console.log(`no available slots - ${now} - retrying in ${interval/1000} seconds`);
   } else {
-    console.log(`slots are available! - ${now}`);
+    console.log(`slots are available! - ${now} - retrying in ${interval/1000} seconds`);
     sendEmail(daysArray.join('\n'));
   }
+  setTimeout(() => checkMuseum(), interval);
 }
 
 
@@ -76,14 +78,23 @@ interface CalendarDate {
   date: string // extra
 }
 
-function getRandomInt(max: number) {
-  return Math.floor(Math.random() * max);
+function getRandomInt(min: number, max: number): number {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  const randomInt = Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  return randomInt;
+}
+
+function getRandomInterval(): number {
+  const SECONDS = 1000;
+  const MIN_INTERVAL_IN_SECONDS = Deno.env.get("MIN_INTERVAL_IN_SECONDS");
+  const MAX_INTERVAL_IN_SECONDS = Deno.env.get("MAX_INTERVAL_IN_SECONDS");
+
+  const interval = getRandomInt(MIN_INTERVAL_IN_SECONDS, MAX_INTERVAL_IN_SECONDS) * SECONDS;
+  return interval;
 }
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
-  const SECONDS = 1000;
-  const INTERVAL_IN_SECONDS = Deno.env.get("INTERVAL_IN_SECONDS");
-  setInterval(() => checkMuseum(), getRandomInt(INTERVAL_IN_SECONDS) * SECONDS);
-
+  checkMuseum();
 }
