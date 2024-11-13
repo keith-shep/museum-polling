@@ -6,8 +6,7 @@ import { Timeslot } from "./timeslot_enum.ts";
 // assertEquals(add(2, 3), 5);
 // });
 
-Deno.test("Expect ID 9336 for 1 Jan 2025 1000hr timeslot", () => {
-    
+Deno.test("test1", () => {
     const date = new Date('2025-01-01');
     const timeslot = Timeslot._1000HR;
     const id = predictTimeScheduleId(date, timeslot);
@@ -15,10 +14,17 @@ Deno.test("Expect ID 9336 for 1 Jan 2025 1000hr timeslot", () => {
 });
 
 
-Deno.test("Expect ID 9349 for 2 Jan 2025 1000hr timeslot", () => { 
+Deno.test("test2", () => { 
     const date = new Date('2025-01-02');
     const timeslot = Timeslot._1000HR;
     const id = predictTimeScheduleId(date, timeslot);
     assertEquals(id, 9349);
+});
+
+Deno.test("test3", () => {
+    const date = new Date('2025-01-09');
+    const timeslot = Timeslot._1230HR;
+    const id = predictTimeScheduleId(date, timeslot);
+    assertEquals(id, 9445);
 });
 

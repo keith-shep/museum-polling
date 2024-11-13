@@ -4,18 +4,21 @@ import { difference } from "https://deno.land/std@0.224.0/datetime/difference.ts
 
 export function predictTimeScheduleId(date: Date, timeslot: Timeslot): number {
     const baseDate = new Date('2025-01-01');
-    const delta = difference(date, baseDate).days;
-    if (delta == undefined) {
+    const dayDelta = difference(date, baseDate).days;
+    if (dayDelta == undefined) {
         throw new Error('something went wrong')
     }
     const baseId = 9336;
-    return baseId + (delta * 13);
+
+    const baseTimeslot = Timeslot._1000HR; 
+    const timeslotDelta = timeslot - baseTimeslot;
+
+    return baseId + (dayDelta * 13) + timeslotDelta;
 }
 
-// if (import.meta.main) {
-//     const date = new Date('2025-01-01');
-//     predictTimeScheduleId(date, Timeslot._1000HR);
-// }
+if (import.meta.main) {
+    // console.log(Timeslot._1600HR - Timeslot._1000HR);
+}
 
 
 // 1 jan 9336
