@@ -30,13 +30,16 @@ export function availableDays(calendar: Object): Array<CalendarDate> {
     return availableDays;
 }
 
-export async function checkMuseum() {
+export async function checkMuseum(filterBy: Array<string>) {
     try {
         const data = await fetchData();
-
+   
         const days = availableDays(data);
-        const daysArray = days.map((day) => day.date);
-
+        
+        const daysArray = days
+                            .map((day) => day.date)
+                            .filter((date) => filterBy.includes(date));
+                            
         const interval = getRandomInterval();
         if (daysArray.length === 0) {
             log(`no available slots - retrying in ${interval / 1000} seconds`,gray);
@@ -48,7 +51,7 @@ export async function checkMuseum() {
         console.log(err);
     } finally {
         const interval = getRandomInterval();
-        setTimeout(() => checkMuseum(), interval);
+        setTimeout(() => checkMuseum(filterByDates()), interval);
     }
 }
 
@@ -112,7 +115,12 @@ function getRandomInterval(): number {
     return interval;
 }
 
+
+function filterByDates() {
+    return ['2024-12-21', '2024-12-22', '2024-12-23'];
+}
+
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
-    checkMuseum();
+    checkMuseum(filterByDates());
 }
