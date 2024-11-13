@@ -39,15 +39,9 @@ export async function checkMuseum() {
 
         const interval = getRandomInterval();
         if (daysArray.length === 0) {
-            log(
-                `no available slots - retrying in ${interval / 1000} seconds`,
-                gray,
-            );
+            log(`no available slots - retrying in ${interval / 1000} seconds`,gray);
         } else {
-            log(
-                `slots are available! - retrying in ${interval / 1000} seconds`,
-                bgGreen,
-            );
+            log(`slots are available! - retrying in ${interval / 1000} seconds`,bgGreen);
             sendEmail(daysArray.join("\n"));
         }
     } catch (err) {
