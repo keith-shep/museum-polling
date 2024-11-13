@@ -2,7 +2,7 @@ import "jsr:@std/dotenv/load";
 import { bgGreen, gray } from "https://deno.land/std@0.153.0/fmt/colors.ts";
 import { sendEmail } from "./mail.ts";
 import { writeToFile } from "./filewriter.ts";
-export async function fetchData(): Promise<object> {
+export async function fetchCalendar(): Promise<object> {
     const jsonResponse = await fetch(
         "https://museum-tickets.nintendo.com/en/api/calendar?target_year=2024&target_month=12",
         {
@@ -32,7 +32,7 @@ export function availableDays(calendar: Object): Array<CalendarDate> {
 
 export async function checkMuseum(filterBy: Array<string>) {
     try {
-        const data = await fetchData();
+        const data = await fetchCalendar();
    
         const days = availableDays(data);
         
@@ -54,6 +54,7 @@ export async function checkMuseum(filterBy: Array<string>) {
         setTimeout(() => checkMuseum(filterByDates()), interval);
     }
 }
+
 
 function log(message: string, color: Function): void {
     const now = new Date().toString();
