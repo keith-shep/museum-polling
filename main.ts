@@ -12,6 +12,7 @@ export async function fetchData(): Promise<object> {
     }
   );
 
+
   const jsonData = await jsonResponse.json();
   return jsonData.data.calendar;
 }
@@ -28,20 +29,28 @@ export function availableDays(calendar: Object): Array<CalendarDate> {
 
 
 export async function checkMuseum() {
-  const data = await fetchData();
+  try {
+    const data = await fetchData();
 
-  const days = availableDays(data);
-  const daysArray = days.map(day => day.date);
+    const days = availableDays(data);
+    const daysArray = days.map(day => day.date);
 
-  
-  const interval = getRandomInterval();
-  if (daysArray.length === 0) {
-    log(`no available slots - retrying in ${interval/1000} seconds`, gray);
-  } else {
-    log(`slots are available! - retrying in ${interval/1000} seconds`, bgGreen);
-    sendEmail(daysArray.join('\n'));
+    const interval = getRandomInterval();
+    if (daysArray.length === 0) {
+      log(`no available slots - retrying in ${interval/1000} seconds`, gray);
+    } else {
+      log(`slots are available! - retrying in ${interval/1000} seconds`, bgGreen);
+      sendEmail(daysArray.join('\n'));
+    }
+    
+
+  } catch (err) {
+    console.log(err);
+  } finally {
+    const interval = getRandomInterval();
+    setTimeout(() => checkMuseum(), interval);
   }
-  setTimeout(() => checkMuseum(), interval);
+  
 }
 
 
