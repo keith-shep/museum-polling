@@ -28,3 +28,17 @@ Deno.test("test3", () => {
     assertEquals(id, 9445);
 });
 
+Deno.test("test4", () => {
+    const date = new Date('2025-01-11');
+    const timeslot = Timeslot._1000HR;
+    const id = predictTimeScheduleId(date, timeslot);
+    assertEquals(id, 9466);
+});
+
+Deno.test("test5", () => {
+    const date = new Date('2025-01-09');
+    const timeslot = Timeslot._1600HR;
+    const id = predictTimeScheduleId(date, timeslot);
+    assertEquals(id, 9452);
+});
+
