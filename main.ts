@@ -1,6 +1,7 @@
 import "jsr:@std/dotenv/load";
 import { gray, bgGreen } from "https://deno.land/std@0.153.0/fmt/colors.ts";
 import { sendEmail } from "./mail.ts";
+import { writeToFile } from "./filewriter.ts";
 export async function fetchData(): Promise<object> {
   const jsonResponse = await fetch(
     "https://museum-tickets.nintendo.com/en/api/calendar?target_year=2024&target_month=12", {
@@ -46,7 +47,9 @@ export async function checkMuseum() {
 
 function log(message: string, color: Function): void {
   const now = new Date().toString();
-  console.log(color(`${message} - ${now}`));
+  const messageString = `${message} - ${now}`;
+  writeToFile(messageString);
+  console.log(color(messageString));
 }
 
 enum SaleStatus {
