@@ -15,23 +15,3 @@ export function predictTimeScheduleId(date: Date, timeslot: Timeslot): number {
 
     return baseId + (dayDelta * 13) + timeslotDelta;
 }
-
-if (import.meta.main) {
-    // console.log(Timeslot._1600HR - Timeslot._1000HR);
-}
-
-
-// 1 jan 9336
-// 2 jan 9349
-// 3 jan 9362
-// 4 jan 9375
-// 5 jan 9388
-// 6 jan 9401
-// 7 jan 9414
-// 8 jan 9427
-// 9 jan 9440
-// 10 jan 9453
-// 11 jan 9466
-
-
-

@@ -2,10 +2,6 @@ import { assertEquals } from "jsr:@std/assert";
 import { predictTimeScheduleId } from "./predict.ts";
 import { Timeslot } from "./timeslot_enum.ts";
 
-// Deno.test(function addTest() {
-// assertEquals(add(2, 3), 5);
-// });
-
 Deno.test("test1", () => {
     const date = new Date('2025-01-01');
     const timeslot = Timeslot._1000HR;
